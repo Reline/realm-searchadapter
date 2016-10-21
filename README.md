@@ -4,6 +4,21 @@ Built on [Realm's `RealmRecyclerViewAdapter`](https://github.com/realm/realm-and
 
 Adapted from [Thorben Primke's realm-searchview](https://github.com/thorbenprimke/realm-searchview)
 
+###How to include it
+```groovy
+allprojects {
+            repositories {
+                        ...
+                        maven { url "https://jitpack.io" }
+            }
+}
+```
+```groovy
+dependencies {
+            compile 'com.github.Reline:realm-searchadapter:1.0'
+}
+```
+
 ##RealmSearchAdapter
 
 The following list of parameters are available to customize the filtering.
