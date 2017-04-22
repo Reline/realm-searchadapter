@@ -1,6 +1,5 @@
 package xyz.projectplay.realmsearchadapter;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -31,18 +30,14 @@ public abstract class RealmSearchAdapter<T extends RealmObject, VH extends Recyc
      * - sortKey: filterKey
      * - basePredicate: not set
      */
-    public RealmSearchAdapter(
-            @NonNull Context context,
-            @Nullable OrderedRealmCollection<T> data,
-            @NonNull String filterKey) {
-        this(context, data, filterKey, true, Case.INSENSITIVE, Sort.ASCENDING, filterKey, null);
+    public RealmSearchAdapter(@Nullable OrderedRealmCollection<T> data, @NonNull String filterKey) {
+        this(data, filterKey, true, Case.INSENSITIVE, Sort.ASCENDING, filterKey, null);
     }
 
     /**
      * Creates a {@link xyz.projectplay.realmsearchadapter.RealmSearchAdapter} with parameters for all options.
      */
     public RealmSearchAdapter(
-            @NonNull Context context,
             @Nullable OrderedRealmCollection<T> data,
             @NonNull String filterKey,
             boolean useContains,
@@ -50,7 +45,7 @@ public abstract class RealmSearchAdapter<T extends RealmObject, VH extends Recyc
             Sort sortOrder,
             String sortKey,
             String basePredicate) {
-        super(context, data, true);
+        super(data, true);
         this.originalData = data;
         this.filterKey = filterKey;
         this.useContains = useContains;
@@ -62,7 +57,7 @@ public abstract class RealmSearchAdapter<T extends RealmObject, VH extends Recyc
 
     public void filter(String input) {
         RealmQuery<T> where = originalData.where();
-        OrderedRealmCollection<T> businesses;
+        OrderedRealmCollection<T> data;
         if (input.isEmpty() && basePredicate != null) {
             if (useContains) {
                 where = where.contains(filterKey, basePredicate, casing);
@@ -78,11 +73,11 @@ public abstract class RealmSearchAdapter<T extends RealmObject, VH extends Recyc
         }
 
         if (sortKey == null) {
-            businesses = where.findAll();
+            data = where.findAll();
         } else {
-            businesses = where.findAllSorted(sortKey, sortOrder);
+            data = where.findAllSorted(sortKey, sortOrder);
         }
-        super.updateData(businesses);
+        super.updateData(data);
     }
 
     /**
