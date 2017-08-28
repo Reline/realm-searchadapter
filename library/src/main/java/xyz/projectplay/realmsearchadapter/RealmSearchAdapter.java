@@ -6,12 +6,12 @@ import android.support.v7.widget.RecyclerView;
 
 import io.realm.Case;
 import io.realm.OrderedRealmCollection;
-import io.realm.RealmObject;
+import io.realm.RealmModel;
 import io.realm.RealmQuery;
 import io.realm.RealmRecyclerViewAdapter;
 import io.realm.Sort;
 
-public abstract class RealmSearchAdapter<T extends RealmObject, VH extends RecyclerView.ViewHolder>
+public abstract class RealmSearchAdapter<T extends RealmModel, VH extends RecyclerView.ViewHolder>
         extends RealmRecyclerViewAdapter<T, VH> {
 
     private OrderedRealmCollection<T> originalData;
